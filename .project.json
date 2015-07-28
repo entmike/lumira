@@ -1,0 +1,102 @@
+{
+  "generation": [
+    {
+      "templateId": "vizpacker.emptyProject",
+      "templateVersion": "0.0.1",
+      "dateTimeStamp": "Tue, 28 Jul 2015 20:48:44 GMT"
+    }
+  ],
+  "vizprojectmanager": {
+    "modelversion": "0.0.2",
+    "id": "com.sample.mike",
+    "name": "HexBin",
+    "version": "1.0.0",
+    "vendor": {
+      "name": "Mike Howles",
+      "url": "Your company website"
+    },
+    "description": "Test HexBin Component",
+    "template": "standard",
+    "container": "BorderSVGFlow",
+    "dataModel": "sap.viz.api.data.CrosstableDataset",
+    "title": {
+      "enabled": true,
+      "place": "top",
+      "text": "Chart Title",
+      "alignment": "center"
+    },
+    "legend": {
+      "enabled": false,
+      "place": "right",
+      "title": {
+        "text": "City/Year"
+      }
+    },
+    "plot": {
+      "id": "com.sample.mike.PlotModule",
+      "name": "HexBin Module",
+      "feeds": {
+        "dimensionSets": [
+          {
+            "name": "Untitled Dimension Set 1",
+            "min": "0",
+            "max": "2",
+            "minStackedDims": "0",
+            "maxStackedDims": "Infinity",
+            "aaIndex": 1,
+            "id": "com.sample.mike.PlotModule.DS1",
+            "plotId": "com.sample.mike.PlotModule",
+            "i": 1
+          }
+        ],
+        "measureSets": [
+          {
+            "name": "xy",
+            "min": "0",
+            "max": "Infinity",
+            "mgIndex": 1,
+            "id": "com.sample.mike.PlotModule.MS1",
+            "plotId": "com.sample.mike.PlotModule",
+            "i": 1
+          }
+        ]
+      }
+    },
+    "data": {
+      "fileName": "data.csv",
+      "delimiter": ",",
+      "useFirstRowAsHeader": true,
+      "fields": [
+        "City",
+        "Year",
+        "Margin",
+        "Quantity sold",
+        "Sales revenue"
+      ],
+      "types": [
+        "Dimension",
+        "Dimension",
+        "Measure",
+        "Measure",
+        "Measure"
+      ]
+    },
+    "binding": {
+      "com.sample.mike.PlotModule.DS1": [
+        "City"
+      ],
+      "com.sample.mike.PlotModule.MS1": [
+        "Quantity sold",
+        "Sales revenue"
+      ]
+    },
+    "requiresdkversion": "5.7.3"
+  },
+  "translation": {
+    "translationDomain": "",
+    "supportedLanguages": "en,fr,de",
+    "defaultLanguage": "en",
+    "defaultI18NPropertyFile": "i18n.properties",
+    "resourceModelName": "i18n"
+  }
+}
