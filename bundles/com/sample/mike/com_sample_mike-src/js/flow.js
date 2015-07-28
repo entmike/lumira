@@ -50,6 +50,12 @@ define("com_sample_mike-src/js/flow", ["com_sample_mike-src/js/module"], functio
 			supportedValues: "",
 			defaultValue: d3.scale.category20().range().concat(d3.scale.category20b().range()).concat(d3.scale.category20c().range())
 		});
+		
+		element.addProperty({
+		   name : "radius",
+		   type : "Integer",
+		   defaultValue : 15
+		});
 
 		flow.addElement({
 			"element": element,
