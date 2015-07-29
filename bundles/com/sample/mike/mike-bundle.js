@@ -1,6 +1,6 @@
 define("mike-bundle", 
     ["com_sample_mike-src/js/flow",
-    "sap_viz_ext_samplebar-src/js/propertyeditor/spec",
+    "com_sample_mike-src/js/propertyeditor/spec",
     "css!com_sample_mike-src/style/default.css"], function(flowDefinition, propertyEditorSpec, cssStyleDeclaration) {
 	var cssString = "",
 		rules, i;
