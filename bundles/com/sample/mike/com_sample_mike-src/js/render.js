@@ -1,10 +1,10 @@
 define("com_sample_mike-src/js/render", 			 /* Module Name */
 		["com_sample_mike-src/js/utils/d3-hexbin"],  /* Dependencies */
-		function() {
+function() {
 	/*
 	 * This function is a drawing function; you should put all your drawing logic in it.
 	 * it's called in moduleFunc.prototype.render
-	 * @param {Object} data - proceessed dataset, check dataMapping.js
+	 * @param {Object} data - processed dataset, check dataMapping.js
 	 * @param {Object} container - the target d3.selection element of plot area
 	 * @example
 	 *   container size:     this.width() or this.height()
