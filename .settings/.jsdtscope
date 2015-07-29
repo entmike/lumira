@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="bundles/com/sample/mike/|bundles/com/sample/mike/com_sample_mike-src/js/|bundles/com/sample/mike/com_sample_mike-src/js/utils/|bundles/com/sample/mike/com_sample_mike-src/resources/languages/|bundles/com/sample/mike/com_sample_mike-src/resources/templates/standard/|lib/" kind="src" path=""/>
-	<classpathentry excluding="com_sample_mike-src/js/|com_sample_mike-src/resources/languages/|com_sample_mike-src/js/utils/|com_sample_mike-src/resources/templates/standard/" kind="src" path="bundles/com/sample/mike"/>
-	<classpathentry excluding="utils/" kind="src" path="bundles/com/sample/mike/com_sample_mike-src/js"/>
-	<classpathentry kind="src" path="bundles/com/sample/mike/com_sample_mike-src/js/utils"/>
-	<classpathentry kind="src" path="bundles/com/sample/mike/com_sample_mike-src/resources/languages"/>
-	<classpathentry kind="src" path="bundles/com/sample/mike/com_sample_mike-src/resources/templates/standard"/>
+	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
