@@ -1,5 +1,7 @@
-define("mike-bundle", ["com_sample_mike-src/js/flow", "css!com_sample_mike-src/style/default.css"], function(flowDefinition,
-	cssStyleDeclaration) {
+define("mike-bundle", 
+    ["com_sample_mike-src/js/flow",
+    "sap_viz_ext_samplebar-src/js/propertyeditor/spec",
+    "css!com_sample_mike-src/style/default.css"], function(flowDefinition, propertyEditorSpec, cssStyleDeclaration) {
 	var cssString = "",
 		rules, i;
 	if (cssStyleDeclaration && cssStyleDeclaration.cssRules) {
@@ -35,6 +37,9 @@ define("mike-bundle", ["com_sample_mike-src/js/flow", "css!com_sample_mike-src/s
 				"resources": [{
 					"key": "sap.viz.api.env.Template.loadPaths",
 					"path": "./com_sample_mike-src/resources/templates"
+				},{
+					"key": "sap.viz.controls.openpe.Language.loadPaths",
+					"path": "./com_sample_mike-src/resources/languages/propertyeditor"
 				}]
 			}
         }]
@@ -43,6 +48,7 @@ define("mike-bundle", ["com_sample_mike-src/js/flow", "css!com_sample_mike-src/s
 	// always available at this timeframe
 	// in standalone mode sap.viz.js will force load and active the
 	// "sap.viz.aio" bundle
+	vizExtBundle.components = vizExtBundle.components.concat(propertyEditorSpec.components);
 	if (sap.bi.framework.getService("sap.viz.aio", "sap.viz.extapi")) {
 		// if in standalone mode, sap.viz.loadBundle will be available,
 		// and we load the bundle directly
