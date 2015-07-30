@@ -1,5 +1,7 @@
 define("com_sample_mike-src/js/propertyeditor/spec", 
-    ["com_sample_mike-src/js/propertyeditor/renderers/checkbox"], function(checkBoxRenderer) {
+    ["com_sample_mike-src/js/propertyeditor/renderers/checkbox",
+     "com_sample_mike-src/js/propertyeditor/renderers/textinput"], 
+     function(checkBoxRenderer, textInputRenderer) {
 	//property editor spec
 	var spec = {
 		"id": "sample.openpe.extension",
@@ -8,7 +10,7 @@ define("com_sample_mike-src/js/propertyeditor/spec",
 			"id": "sample.openpe.samplebar.extension",
 			"provide": "sap.viz.controls.propertyeditor.view",
 			"instance": {
-				'charts': ['sap.viz.ext.samplebar'],
+				'charts': ['com.sample.mike'],	// Make sure right ID
 				'view': {
 					'sections': [{
 						"id": "sap.viz.controls.propertyeditor.section.chart_title",
@@ -47,8 +49,22 @@ define("com_sample_mike-src/js/propertyeditor/spec",
 						'propertyZone': 'PLOTAREA',
 						'caption': 'EXTEND_PLOT_AREA',
 						"groups": [{
-							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.radius",
+							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.gridline.visible",
 							'renderer': checkBoxRenderer,
+							"config": {
+								"property": "plotArea.gridline.visible",
+								"label": "Show Grid Line"
+							}
+						}, {
+							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.animation.dataLoading",
+							'renderer': checkBoxRenderer,
+							"config": {
+								"property": "plotArea.animation.dataLoading",
+								"label": "Enable Data Loading Animation"
+							}
+						},{
+							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.radius",
+							'renderer': textInputRenderer,
 							"config": {
 								"property": "plotArea.radius",
 								"label": "Radius"

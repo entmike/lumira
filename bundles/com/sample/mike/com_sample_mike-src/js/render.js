@@ -14,37 +14,39 @@ function() {
 	 */
     var render = function(data, container) {
         var properties = this.properties();
-        var that = this;
         var points = [];
-        var maxX = 0;
-        var maxY = 0;
+        var maxX;
+        var maxY;
+        var minX;
+        var minY;
         data.map(function(d){
             var x = d[data.meta.measures(0)[0]];
             var y = d[data.meta.measures(0)[1]];
-            if(x > maxX) maxX = x;
-            if(y > maxY) maxY = y;
+            if(maxX == undefined || x > maxX) maxX = x;
+            if(maxY == undefined || y > maxY) maxY = y;
+            if(minX == undefined || x < minX) minX = x;
+            if(minY == undefined || y < minY) minY = y;
             
         });
         var xScale = d3.scale.linear()
-			.domain([0, maxX])
-			.range([0, that.width()]);
+			.domain([minX, maxX])
+			.range([0, this.width()]);
 	    var yScale = d3.scale.linear()
-	        .domain([0, maxY])
-			.range([that.height(), 0]);
+	        .domain([minY, maxY])
+			.range([this.height(), 0]);
         data.map(function(d){
             var x = d[data.meta.measures(0)[0]];
             var y = d[data.meta.measures(0)[1]];
            points.push([xScale(x),yScale(y)]);
-            
         });
         
         //console.log(JSON.stringify(points));
-        console.log(that.width() + "," + that.height());
+        console.log(this.width() + "," + this.height());
         console.log(points.length);
-        console.log(JSON.stringify(that.properties()));
+        console.log(JSON.stringify(this.properties()));
         var r = 5;
         if(properties && properties.radius) r = properties.radius;
-        this.hexbin = d3.hexbin().size([that.width(),that.height()]).radius(r);
+        this.hexbin = d3.hexbin().size([this.width(),this.height()]).radius(r);
         this.hexbins = this.hexbin(points);
         var max = d3.median(this.hexbins,function(d){
             return d.length;
@@ -52,7 +54,7 @@ function() {
         var min = 0;
 		var colorRange = d3.scale.quantize()
             .domain([min,max])
-            .range(that.properties().colorPalette);
+            .range(properties.colorPalette);
         var pathGroup = container.selectAll("g");
         if(pathGroup.empty()){
             pathGroup = container.append("g")

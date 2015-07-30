@@ -38,8 +38,8 @@ define("com_sample_mike-src/js/flow", ["com_sample_mike-src/js/module"], functio
 			"id": "com.sample.mike.PlotModule.MS1",
 			"name": "xy",
 			"type": "Measure",
-			"min": 0, //minimum number of measures
-			"max": Infinity, //maximum number of measures
+			"min": 2, //minimum number of measures
+			"max": 2, //maximum number of measures
 			"mgIndex": 1
 		};
 		element.addFeed(ms1);
@@ -48,14 +48,47 @@ define("com_sample_mike-src/js/flow", ["com_sample_mike-src/js/module"], functio
 			name: "colorPalette",
 			type: "StringArray",
 			supportedValues: "",
-			defaultValue: d3.scale.category20().range().concat(d3.scale.category20b().range()).concat(d3.scale.category20c().range())
+			defaultValue: d3.scale.category20()
+				.range().concat(d3.scale.category20b()
+				.range()).concat(d3.scale.category20c().range())
 		});
-		
+
+		/* https://help.hana.ondemand.com/webide_vizpacker/frameset.htm?51870e1bac8d4a68b76b073579bfc835.html
+		 * 
+		 * You change the property category in the flow.js file. Once you modify the property category, all properties beginning 
+		 * with the new property will be visible in render.js. For example, if you set the category to “plotArea”, 
+		 * then the following would be accessible in render.js
+		 */
 		element.addProperty({
 		   name : "radius",
 		   type : "Integer",
 		   defaultValue : 15
 		});
+		/*
+		 * Tutorial attempts:
+		 */
+		 element.addProperty({
+		    name: "gridline",
+		    type: "Object",
+		    supportedValues: {
+		        visible : {
+		            name: "visible",
+		            type: "Boolean",
+		            supportedValues:[true, false]
+		        }
+		    }
+		 });
+		element.addProperty({
+		    name: "animation",
+		    type: "Object",
+		    supportedValues: {
+		        dataLoading : {
+		            name: "dataLoading",
+		            type: "Boolean",
+		            supportedValues:[true, false]
+		        }
+		    }
+		 });
 
 		flow.addElement({
 			"element": element,
