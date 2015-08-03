@@ -13,18 +13,14 @@ function() {
 	 *   measures info:      data.meta.measures()
 	 */
     var render = function(data, container, width, height, colorPalette, properties, dispatch) {
-    	// container.html(this.properties().content || "");
-    	var vis = container.append('svg')
-    		.attr('width', width)
-    		.attr('height', height)
-    		.append('g')
-    			.attr('class', 'vis')
-    			.attr('width', width)
-    			.attr('height', height);
-
-    	vis.append("text").text(this.properties().content || "")
-    		.attr("y",20)
-    		.attr("font-size","large");
+    	var content = this.properties().content || "";
+    	container.html(decodeURIComponent(content));
+    	var js = this.properties().js || "";
+    	try{
+			eval(decodeURIComponent(js));
+		}catch(e){
+			alert(e);
+		}
     };
 
     return render; 

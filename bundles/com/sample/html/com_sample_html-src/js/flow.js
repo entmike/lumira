@@ -4,8 +4,8 @@ define("com_sample_html-src/js/flow", ["com_sample_html-src/js/module"], functio
 			id: "com.sample.html",
 			name: "html",
 			dataModel: "sap.viz.api.data.CrosstableDataset",
-			//type: "DIV"
-			type: "BorderSVGFlow"
+			type: "DIV"
+			//type: "BorderSVGFlow"
 		});
 
 		var titleElement = sap.viz.extapi.Flow.createElement({
@@ -45,6 +45,11 @@ define("com_sample_html-src/js/flow", ["com_sample_html-src/js/module"], functio
 		   name : "content",
 		   type : "String",
 		   defaultValue :"HTML Content Here"
+		});
+		element.addProperty({
+		   name : "js",
+		   type : "String",
+		   defaultValue :""
 		});
 		
 		flow.addElement({

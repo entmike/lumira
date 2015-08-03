@@ -1,12 +1,12 @@
 define("com_sample_html-src/js/propertyeditor/spec", 
-    ["com_sample_html-src/js/propertyeditor/renderers/textinput"], 
-     function(checkBoxRenderer, textInputRenderer) {
+    ["com_sample_html-src/js/propertyeditor/renderers/encoded-textarea"], 
+     function(textArea) {
 	//property editor spec
 	var spec = {
 		"id": "sample.openpe.extension",
 		"dependencies": [],
 		"components": [{
-			"id": "sample.openpe.samplebar.extension",
+			"id": "com.sample.html.propertyeditor",
 			"provide": "sap.viz.controls.propertyeditor.view",
 			"instance": {
 				'charts': ['com.sample.html'],	// Make sure right ID
@@ -49,10 +49,23 @@ define("com_sample_html-src/js/propertyeditor/spec",
 						'caption': 'EXTEND_PLOT_AREA',
 						"groups": [{
 							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.content",
-							'renderer': textInputRenderer,
+							'renderer': textArea,
 							"config": {
-								"property": "content",
-								"label": "Content"
+								"property": "plotArea.content",
+								"label": "HTML",
+								"mode" : "text/html",
+								"flyout" : true,
+								"icon" : "sap-icon://attachment-html"
+							}
+						},{
+							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.content",
+							'renderer': textArea,
+							"config": {
+								"property": "plotArea.js",
+								"label": "JavaScript",
+								"mode" : "javascript",
+								"flyout" : true,
+								"icon" : "sap-icon://lab"
 							}
 						}]
 					}]

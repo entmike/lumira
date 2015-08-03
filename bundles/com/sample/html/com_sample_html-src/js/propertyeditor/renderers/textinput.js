@@ -37,7 +37,6 @@ define("com_sample_html-src/js/propertyeditor/renderers/textinput", [], function
 
 	var r = function(div, proxy, config) {
 		try{
-		//alert(JSON.stringify(config));
 		var layout = new sap.ui.commons.layout.VerticalLayout({
 			
 		});
@@ -52,13 +51,9 @@ define("com_sample_html-src/js/propertyeditor/renderers/textinput", [], function
 			//checked: readProperty(proxy.queryProperties(buildPropertyTree(config.property, false)), config.property),
 			change: function(oControlEvent) {
 				var property;
-				var newValue = parseInt(oControlEvent.getSource().getValue());
-				if(!isNaN(newValue)){
-					property = buildPropertyTree(config.property, newValue);
-					proxy.updateProperties(property);
-				}else{
-					alert("Non-numeric value detected.");
-				}			
+				var newValue = oControlEvent.getSource().getValue();
+				property = buildPropertyTree(config.property, newValue);
+				proxy.updateProperties(property);
 			}
 		});
 		layout.addContent(label).addContent(oTextInput);

@@ -1,4 +1,13 @@
 define("com_sample_hexbin-src/js/dataMapping", ["com_sample_hexbin-src/js/utils/util"], function(util) {
+	/* 
+	var processData = function(data, feeds, done) {
+		util.toTable(data);
+		return done(null,data);
+	};
+	return;
+	*/
+	// ORIGINAL
+	
 	var processData = function(data, feeds, done) {
 		// Build name index so that dimension/measure sets can be accessed by name
 		util.buildNameIdx(feeds);

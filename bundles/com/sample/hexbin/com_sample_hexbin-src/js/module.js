@@ -37,6 +37,16 @@ function(render, processData) {
 		}
 	};
 	/*
+	//set the context of the selection data point
+	moduleFunc.setSelectedObjects = function(data) {
+		moduleFunc._selectedObjs = JSON.parse(JSON.stringify(data));
+	};
+	//get the context of the selection data point
+	moduleFunc.getSelectedObjects = function(data, option) {
+		return moduleFunc._selectedObjs;
+	};
+	*/
+	/*
 	 * export current extension to the specified content.
 	 * @param {Object} options the options for exporting content.
 	 * @example:

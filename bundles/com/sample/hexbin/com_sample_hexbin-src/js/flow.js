@@ -1,4 +1,15 @@
 define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], function(moduleFunc) {
+	/**
+	 * 'sap.viz.chart.elements.Title' : FlowConstant.CONST_TITLE_NAME,
+        'sap.viz.chart.elements.ColorLegend' : FlowConstant.CONST_LEGEND_NAME,
+        'sap.viz.chart.elements.BubbleColorLegend' : FlowConstant.CONST_LEGEND_NAME,
+        'sap.viz.chart.elements.SizeColorLegend' : FlowConstant.CONST_LEGEND_NAME,
+        'sap.viz.chart.elements.MeasureBasedColoringLegend' : FlowConstant.CONST_LEGEND_NAME,
+        'sap.viz.viz.modules.legend' : FlowConstant.CONST_LEGENDS_NAME,
+        'sap.viz.modules.controller.interaction' : FlowConstant.CONST_INTERACTION_NAME,
+        'sap.viz.chart.elements.Tooltip' : FlowConstant.CONST_TOOLTIP_NAME,
+        'sap.viz.modules.dataFilter' : FlowConstant.CONST_DATA_FILTER
+	 */
 	var flowRegisterFunc = function() {
 		var flow = sap.viz.extapi.Flow.createFlow({
 			id: "com.sample.hexbin",
@@ -6,15 +17,18 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 			dataModel: "sap.viz.api.data.CrosstableDataset",
 			type: "BorderSVGFlow"
 		});
-
+		var dataFilter = sap.viz.extapi.Flow.createElement({
+		    id : 'sap.viz.modules.dataFilter',
+		 });
+		
 		var titleElement = sap.viz.extapi.Flow.createElement({
 			id: "sap.viz.chart.elements.Title",
 			name: "Title"
 		});
-		flow.addElement({
-			"element": titleElement,
-			"propertyCategory": "title",
-			"place": "top"
+		
+		var legendElement = sap.viz.extapi.Flow.createElement({
+			 id : 'sap.viz.chart.elements.BubbleColorLegend',
+			 name : 'Legend',
 		});
 
 		var element = sap.viz.extapi.Flow.createElement({
@@ -22,7 +36,7 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 			name: "HexBin Module"
 		});
 		element.implement("sap.viz.elements.common.BaseGraphic", moduleFunc);
-
+		
 		/*Feeds Definition*/
 		var ds1 = {
 			"id": "com.sample.hexbin.PlotModule.DS1",
@@ -92,8 +106,29 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 
 		flow.addElement({
 			"element": element,
-			"propertyCategory": "plotArea"
+			"propertyCategory": "plotArea",
+			place : "center"
 		});
+
+		flow.addElement({
+			"element": titleElement,
+			"propertyCategory": "title",
+			"place": "top"
+		});
+		
+		flow.addElement({
+			"element": legendElement,
+			"propertyCategory": "legend",
+			"place": "right"
+		});
+		
+		/*
+		flow.addElement({
+			"element": dataFilter,
+			"propertyCategory": "tooltip",
+			//"place": "right"
+		});
+		*/
 		sap.viz.extapi.Flow.registerFlow(flow);
 	};
 	flowRegisterFunc.id = "com.sample.hexbin";
