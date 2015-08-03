@@ -97,7 +97,7 @@ function() {
         var min = 0;
 		var colorRange = d3.scale.quantize()
             .domain([min,max])
-            .range(properties.colorPalette);
+            .range(properties.colors);
 		
         var canvSelection = pathGroup.selectAll(".hexagon")
             .data(this.hexbins);

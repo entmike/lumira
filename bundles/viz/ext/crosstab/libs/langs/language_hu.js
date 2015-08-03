@@ -1,0 +1,1 @@
+sap.viz.extapi.env.Language.register({id:"hu",value:{XTAB_SUBTOTAL_LABEL_AVERAGE:"Átlagos",XTAB_SUBTOTAL_LABEL_MIN:"Minimum",XTAB_SUBTOTAL_LABEL_SUM:"Összeg",XTAB_MEASURE_AXIS_TITLE:"Mutatószámok",XTAB_SUBTOTAL_LABEL_MAX:"Maximum",XTAB_SUBTOTAL_LABEL_TOTAL:"Összesen",XTAB_SUBTOTAL_LABEL_COUNT:"Számbavétel",}});

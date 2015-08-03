@@ -1,0 +1,5 @@
+{
+"name":"sap.basetable.crosstab.library-preload",
+"dependencies":["sap.ui.core.library-preload"],
+"modules":{}
+}

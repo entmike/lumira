@@ -1,7 +1,8 @@
 define("hexbin-bundle", 
     ["com_sample_hexbin-src/js/flow",
     "com_sample_hexbin-src/js/propertyeditor/spec",
-    "css!com_sample_hexbin-src/style/default.css"], function(flowDefinition, propertyEditorSpec, cssStyleDeclaration) {
+    "com_sample_hexbin-src/js/contextmenu/spec",
+    "css!com_sample_hexbin-src/style/default.css"], function(flowDefinition, propertyEditorSpec, contextMenuSpec, cssStyleDeclaration) {
 	var cssString = "",
 		rules, i;
 	if (cssStyleDeclaration && cssStyleDeclaration.cssRules) {
@@ -14,6 +15,8 @@ define("hexbin-bundle",
 		viz: [flowDefinition],
 		module: [],
 		feeds: [],
+		"menu" : [["sap.viz.controls.contextmenu.item.direction", "sap.viz.controls.contextmenu.item.stacking"], ["sap.viz.controls.contextmenu.item.title", "sap.viz.controls.contextmenu.item.legend", "sap.viz.controls.contextmenu.item.mbclegend", "sap.viz.controls.contextmenu.item.datalabels", "sap.viz.controls.contextmenu.item.negative", "sap.viz.controls.contextmenu.item.mnd", "sap.viz.controls.contextmenu.item.gridlines", "sap.viz.controls.contextmenu.item.setAxisScale"]],
+		"useCustomizedContextMenu" : true,
 		cssString: cssString
 	};
 	var vizExtBundle = sap.bi.framework.declareBundle({
@@ -27,8 +30,9 @@ define("hexbin-bundle",
 				"name": "HexBin",
 				"description": "",
 				"icon": {
-					"path": ""
+					"path": "./com_sample_hexbin-src/resources/hexbin.png"
 				},
+				"subMenus" : [],
 				"category": [],
 				"requires": [{
 					"id": "sap.viz.common.core",
@@ -48,6 +52,7 @@ define("hexbin-bundle",
 	// always available at this timeframe
 	// in standalone mode sap.viz.js will force load and active the
 	// "sap.viz.aio" bundle
+	//vizExtBundle.components = vizExtBundle.components.concat(contextMenuSpec);
 	vizExtBundle.components = vizExtBundle.components.concat(propertyEditorSpec.components);
 	if (sap.bi.framework.getService("sap.viz.aio", "sap.viz.extapi")) {
 		// if in standalone mode, sap.viz.loadBundle will be available,

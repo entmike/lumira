@@ -1,0 +1,1 @@
+sap.viz.extapi.env.Language.register({id:"de",value:{XTAB_SUBTOTAL_LABEL_AVERAGE:"Durchschnitt",XTAB_SUBTOTAL_LABEL_MIN:"Minimum",XTAB_SUBTOTAL_LABEL_SUM:"Summe",XTAB_MEASURE_AXIS_TITLE:"Kennzahlen",XTAB_SUBTOTAL_LABEL_MAX:"Maximum",XTAB_SUBTOTAL_LABEL_TOTAL:"Gesamt",XTAB_SUBTOTAL_LABEL_COUNT:"Anzahl",}});

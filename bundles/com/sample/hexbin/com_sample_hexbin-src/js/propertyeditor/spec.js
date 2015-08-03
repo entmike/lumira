@@ -1,13 +1,18 @@
 define("com_sample_hexbin-src/js/propertyeditor/spec", 
     ["com_sample_hexbin-src/js/propertyeditor/renderers/checkbox",
-     "com_sample_hexbin-src/js/propertyeditor/renderers/textinput"], 
-     function(checkBoxRenderer, textInputRenderer) {
+     "com_sample_hexbin-src/js/propertyeditor/renderers/textinput",
+     "com_sample_hexbin-src/js/propertyeditor/renderers/palette"], 
+     function(checkBoxRenderer, textInputRenderer, paletteRenderer) {
 	//property editor spec
+	/**
+	 * "id" : "builtIn:sap.viz.controls.contextmenu.item.legend"
+	 */
+	
 	var spec = {
-		"id": "sample.openpe.extension",
+		"id": "com.sample.hexbin",
 		"dependencies": [],
 		"components": [{
-			"id": "sample.openpe.samplebar.extension",
+			"id": "com.sample.hexbin.extension",
 			"provide": "sap.viz.controls.propertyeditor.view",
 			"instance": {
 				'charts': ['com.sample.hexbin'],	// Make sure right ID
@@ -49,6 +54,13 @@ define("com_sample_hexbin-src/js/propertyeditor/spec",
 						'propertyZone': 'PLOTAREA',
 						'caption': 'EXTEND_PLOT_AREA',
 						"groups": [{
+							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.colorPalette",
+							'renderer': paletteRenderer,
+							"config": {
+								"property": "plotArea.colors",
+								"label": "Color Palette"
+							}
+						},{
 							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.gridline.visible",
 							'renderer': checkBoxRenderer,
 							"config": {
@@ -68,6 +80,13 @@ define("com_sample_hexbin-src/js/propertyeditor/spec",
 							"config": {
 								"property": "plotArea.radius",
 								"label": "Radius"
+							}
+						},{
+							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.datapoint",
+							'renderer': checkBoxRenderer,
+							"config": {
+								"property": "plotArea.datapoint",
+								"label": "Show Values"
 							}
 						}]
 					}]

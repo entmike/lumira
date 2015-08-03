@@ -27,7 +27,12 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 		});
 		
 		var legendElement = sap.viz.extapi.Flow.createElement({
-			 id : 'sap.viz.chart.elements.BubbleColorLegend',
+			"id" : "sap.viz.modules.legend.common",
+			"configure" : {
+				"properties" : {
+					"type" : "MeasureBasedColoringLegend"
+				}
+			},
 			 name : 'Legend',
 		});
 
@@ -62,6 +67,23 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 			name: "colorPalette",
 			type: "StringArray",
 			supportedValues: "",
+			defaultValue: d3.scale.category20()
+				.range().concat(d3.scale.category20b()
+				.range()).concat(d3.scale.category20c().range())
+		});
+		
+		element.addProperty({
+			name: "colorPalette",
+			type: "StringArray",
+			supportedValues: "",
+			defaultValue: d3.scale.category20()
+				.range().concat(d3.scale.category20b()
+				.range()).concat(d3.scale.category20c().range())
+		});
+		
+		element.addProperty({
+			name: "colors",
+			type: "StringArray",
 			defaultValue: d3.scale.category20()
 				.range().concat(d3.scale.category20b()
 				.range()).concat(d3.scale.category20c().range())
