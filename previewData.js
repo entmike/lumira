@@ -22,7 +22,11 @@ define([], function () {
 								"type" : "Measure",
 								"name" : "Margin",
 								"values" : [[1676.7, 3097.9, 230.8, 153.6, 4092.1, 555.4, 150.7, 1741.2, 1328.2, 2116.5, 1165.8, 6944.3, 823.4, 3848.3, 2303.8, 5759, 9749.6, 19.3, 2790.2, 6571.7, 175.6]]
-							}, {
+							}
+						]
+					},{
+						"index" : 2,
+						"data" : [{
 								"type" : "Measure",
 								"name" : "Quantity sold",
 								"values" : [[21, 52, 2, 2, 61, 7, 9, 38, 12, 20, 10, 79, 7, 51, 25, 71, 144, 1, 30, 82, 3]]
@@ -32,17 +36,24 @@ define([], function () {
 				]
 			},
 			"bindings" : [{
-					"feed" : "com.sample.mike.PlotModule.DS1",
+					"feed" : "com.sample.hexbin.PlotModule.GroupingDimensions",
 					"source" : [{
 							"type" : "analysisAxis",
 							"index" : 1
 						}
 					]
 				}, {
-					"feed" : "com.sample.mike.PlotModule.MS1",
+					"feed" : "com.sample.hexbin.PlotModule.XAxis",
 					"source" : [{
 							"type" : "measureValuesGroup",
 							"index" : 1
+						}
+					]
+				},{
+					"feed" : "com.sample.hexbin.PlotModule.YAxis",
+					"source" : [{
+							"type" : "measureValuesGroup",
+							"index" : 2
 						}
 					]
 				}

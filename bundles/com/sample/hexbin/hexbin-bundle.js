@@ -15,7 +15,7 @@ define("hexbin-bundle",
 		viz: [flowDefinition],
 		module: [],
 		feeds: [],
-		"menu" : [["sap.viz.controls.contextmenu.item.direction", "sap.viz.controls.contextmenu.item.stacking"], ["sap.viz.controls.contextmenu.item.title", "sap.viz.controls.contextmenu.item.legend", "sap.viz.controls.contextmenu.item.mbclegend", "sap.viz.controls.contextmenu.item.datalabels", "sap.viz.controls.contextmenu.item.negative", "sap.viz.controls.contextmenu.item.mnd", "sap.viz.controls.contextmenu.item.gridlines", "sap.viz.controls.contextmenu.item.setAxisScale"]],
+		//"menu" : [["sap.viz.controls.contextmenu.item.direction", "sap.viz.controls.contextmenu.item.stacking"], ["sap.viz.controls.contextmenu.item.title", "sap.viz.controls.contextmenu.item.legend", "sap.viz.controls.contextmenu.item.mbclegend", "sap.viz.controls.contextmenu.item.datalabels", "sap.viz.controls.contextmenu.item.negative", "sap.viz.controls.contextmenu.item.mnd", "sap.viz.controls.contextmenu.item.gridlines", "sap.viz.controls.contextmenu.item.setAxisScale"]],
 		"useCustomizedContextMenu" : true,
 		cssString: cssString
 	};
