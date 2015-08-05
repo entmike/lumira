@@ -1,8 +1,9 @@
 define("com_sample_hexbin-src/js/propertyeditor/spec", 
     ["com_sample_hexbin-src/js/propertyeditor/renderers/checkbox",
      "com_sample_hexbin-src/js/propertyeditor/renderers/textinput",
+     "com_sample_hexbin-src/js/propertyeditor/renderers/combobox",
      "com_sample_hexbin-src/js/propertyeditor/renderers/palette"], 
-     function(checkBoxRenderer, textInputRenderer, paletteRenderer) {
+     function(checkBoxRenderer, textInputRenderer, comboboxRenderer, paletteRenderer) {
 	//property editor spec
 	/**
 	 * "id" : "builtIn:sap.viz.controls.contextmenu.item.legend"
@@ -54,27 +55,35 @@ define("com_sample_hexbin-src/js/propertyeditor/spec",
 						'propertyZone': 'PLOTAREA',
 						'caption': 'EXTEND_PLOT_AREA',
 						"groups": [{
-							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.colorPalette",
+							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.stops",
 							'renderer': paletteRenderer,
 							"config": {
-								"property": "plotArea.colors",
+								"property": "plotArea.stops",
 								"label": "Color Palette"
+							}
+						},{
+							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.thresholdMethod",
+							'renderer': comboboxRenderer,
+							"config": {
+								"options" : ["Median","Mean","Max"],
+								"property": "plotArea.thresholdMethod",
+								"label": "Threshold Method"
 							}
 						},{
 							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.gridline.visible",
 							'renderer': checkBoxRenderer,
 							"config": {
 								"property": "plotArea.gridline.visible",
-								"label": "Show Grid Line"
+								"label": "Show Axes"
 							}
-						}, {
+						}/*, {
 							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.animation.dataLoading",
 							'renderer': checkBoxRenderer,
 							"config": {
 								"property": "plotArea.animation.dataLoading",
 								"label": "Enable Data Loading Animation"
 							}
-						},{
+						}*/,{
 							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.radius",
 							'renderer': textInputRenderer,
 							"config": {
@@ -82,10 +91,10 @@ define("com_sample_hexbin-src/js/propertyeditor/spec",
 								"label": "Radius"
 							}
 						},{
-							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.datapoint",
+							"id": "sap.viz.controls.propertyeditor.section.plotArea.group.showvalues",
 							'renderer': checkBoxRenderer,
 							"config": {
-								"property": "plotArea.datapoint",
+								"property": "plotArea.showValues",
 								"label": "Show Values"
 							}
 						}]

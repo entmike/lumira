@@ -1,7 +1,9 @@
 /* IMPORTANT:  use unique CSS class name to avoid confliction with other extensions or applications. */
 
 /* For example, adding the extension id as prefix of CSS class name. */
-
+.viz-controls-propertyeditor-main .sapUiTfStd.paletteText {
+	font-size : 8pt !important;
+}
 .mhtooltip {
 	background: rgba(0, 0, 0, 0.8);
 	color: #fff;

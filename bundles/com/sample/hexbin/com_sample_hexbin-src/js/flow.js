@@ -25,7 +25,7 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 			id: "sap.viz.chart.elements.Title",
 			name: "Title"
 		});
-		
+		/*
 		var legendElement = sap.viz.extapi.Flow.createElement({
 			"id" : "sap.viz.modules.legend.common",
 			"configure" : {
@@ -35,6 +35,7 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 			},
 			 name : 'Legend',
 		});
+		*/
 
 		var element = sap.viz.extapi.Flow.createElement({
 			id: "com.sample.hexbin.PlotModule",
@@ -44,24 +45,33 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 		
 		/*Feeds Definition*/
 		var ds1 = {
-			"id": "com.sample.hexbin.PlotModule.DS1",
-			"name": "Untitled Dimension Set 1",
+			"id": "com.sample.hexbin.PlotModule.GroupingDimensions",
+			"name": "Grouping Dimensions",
 			"type": "Dimension",
-			"min": 0, //minimum number of data container
-			"max": 2, //maximum number of data container
+			"min": 1, //minimum number of data container
+			"max": 10, //maximum number of data container
 			"aaIndex": 1
 		};
 		element.addFeed(ds1);
 
 		var ms1 = {
-			"id": "com.sample.hexbin.PlotModule.MS1",
-			"name": "xy",
+			"id": "com.sample.hexbin.PlotModule.XAxis",
+			"name": "X-Axis",
 			"type": "Measure",
-			"min": 2, //minimum number of measures
-			"max": 2, //maximum number of measures
+			"min": 1, //minimum number of measures
+			"max": 1, //maximum number of measures
 			"mgIndex": 1
 		};
+		var ms2 = {
+			"id": "com.sample.hexbin.PlotModule.YAxis",
+			"name": "Y-Axis",
+			"type": "Measure",
+			"min": 1, //minimum number of measures
+			"max": 1, //maximum number of measures
+			"mgIndex": 2
+		};
 		element.addFeed(ms1);
+		element.addFeed(ms2);
 
 		element.addProperty({
 			name: "colorPalette",
@@ -73,20 +83,15 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 		});
 		
 		element.addProperty({
-			name: "colorPalette",
+			name: "stops",
 			type: "StringArray",
-			supportedValues: "",
-			defaultValue: d3.scale.category20()
-				.range().concat(d3.scale.category20b()
-				.range()).concat(d3.scale.category20c().range())
+			defaultValue: ["#f7fbff","#deebf7","#c6dbef","#9ecae1","#6baed6","#4292c6","#2171b5","#08519c","#08306b"]
 		});
 		
 		element.addProperty({
-			name: "colors",
-			type: "StringArray",
-			defaultValue: d3.scale.category20()
-				.range().concat(d3.scale.category20b()
-				.range()).concat(d3.scale.category20c().range())
+			name: "thresholdMethod",
+			type: "String",
+			defaultValue: "Median"
 		});
 
 		/* https://help.hana.ondemand.com/webide_vizpacker/frameset.htm?51870e1bac8d4a68b76b073579bfc835.html
@@ -100,6 +105,12 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 		   type : "Integer",
 		   defaultValue : 15
 		});
+		element.addProperty({
+		    name: "showValues",
+		    type: "Boolean",
+		    defaultValue: true,
+		    supportedValues:[true, false]
+		 });
 		/*
 		 * Tutorial attempts:
 		 */
@@ -129,7 +140,7 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 		flow.addElement({
 			"element": element,
 			"propertyCategory": "plotArea",
-			place : "center"
+			"place" : "center"
 		});
 
 		flow.addElement({
@@ -138,11 +149,14 @@ define("com_sample_hexbin-src/js/flow", ["com_sample_hexbin-src/js/module"], fun
 			"place": "top"
 		});
 		
-		flow.addElement({
+		
+		
+		/*flow.addElement({
 			"element": legendElement,
 			"propertyCategory": "legend",
 			"place": "right"
 		});
+		*/
 		
 		/*
 		flow.addElement({
