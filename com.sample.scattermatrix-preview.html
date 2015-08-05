@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>HexBin Extension</title>
+        <title>scattermatrix Extension</title>
         
         <script type="text/javascript" src="lib/d3.js"></script>
         <script type="text/javascript" src="lib/require.js"></script>
@@ -13,12 +13,12 @@
         <script id="prepare" type="text/javascript">
             // Create and initialize the extension in an requireJS manner
             // Load the preview data
-            require(["previewData"], function(previewData) {
+            require(["scattermatrix-data"], function(previewData) {
                 // Configure the baseUrl for requireJS to find the specific module or file
                 requirejs.config({
-                    baseUrl : "./bundles/com/sample/hexbin"
+                    baseUrl : "./bundles/com/sample/scattermatrix"
                 });
-                require([ "hexbin-bundle" ], function() {
+                require([ "scattermatrix-bundle" ], function() {
                     //chart option
                     var chartPoperties = {
                         plotArea: {
@@ -29,7 +29,7 @@
                             text : "Chart Title",
                             alignment : "center",
                         },
-                        "HexBin Module": {
+                        "scattermatrix Module": {
                             borderColor: "none"
                         },
                     };
@@ -42,7 +42,7 @@
                         //create chart after applying template
                         try {
                             var chart = sap.viz.api.core.createViz({
-                                type : "com.sample.hexbin",
+                                type : "com.sample.scattermatrix",
                                 data : ds,
                                 bindings : previewData.cross.bindings,
                                 container : $("#chart"),
@@ -67,7 +67,7 @@
 
                     function onLocaleApplied() {
                         // set template loadPath
-                        sap.viz.api.env.Resource.path("sap.viz.api.env.Template.loadPaths", ["./bundles/com/sample/hexbin/com_sample_hexbin-src/resources/templates"]);
+                        sap.viz.api.env.Resource.path("sap.viz.api.env.Template.loadPaths", ["./bundles/com/sample/scattermatrix/com_sample_scattermatrix-src/resources/templates"]);
                         sap.viz.api.env.Template.set("standard", onTplLoad, onTplFail);
                         $("footer").text(sap.viz.extapi.env.Language.getResourceString('IDS_VERSION_PUBLIC'));
                     }
@@ -79,7 +79,7 @@
                     }
                 
                     if (lang) {
-                        sap.viz.api.env.Resource.path("sap.viz.api.env.Language.loadPaths", ["./bundles/com/sample/hexbin/com_sample_hexbin-src/resources/languages"]);
+                        sap.viz.api.env.Resource.path("sap.viz.api.env.Language.loadPaths", ["./bundles/com/sample/scattermatrix/com_sample_scattermatrix-src/resources/languages"]);
                         sap.viz.api.env.Language.set(lang, onLocaleApplied);
                     } else {
                         onLocaleApplied();
