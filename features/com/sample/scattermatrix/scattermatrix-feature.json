@@ -13,7 +13,7 @@
 		"version": "5.7.3"
 	}],
 	"bundles": [{
-		"id": "com.sample.hexbin",
+		"id": "com.sample.scattermatrix",
 		"version": "1.0.0"
 	}]
 }

@@ -1,1 +1,0 @@
-sap.viz.extapi.env.Language.register({id:"ru",value:{XTAB_SUBTOTAL_LABEL_AVERAGE:"Среднее значение",XTAB_SUBTOTAL_LABEL_MIN:"Минимальное значение",XTAB_SUBTOTAL_LABEL_SUM:"Сумма",XTAB_MEASURE_AXIS_TITLE:"Показатели",XTAB_SUBTOTAL_LABEL_MAX:"Максимальное значение",XTAB_SUBTOTAL_LABEL_TOTAL:"Итоги",XTAB_SUBTOTAL_LABEL_COUNT:"Количество",}});

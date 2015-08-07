@@ -26,22 +26,59 @@ function() {
     		record.species = d[data.meta.dimensions(0)[0]];
     		rows.push(record);
         });
-    	var uniques = d3.map(rows, function(d) { 
+    	/*var uniques = d3.map(rows, function(d) { 
     		console.log(d);
     		return d.species;
-    	}).keys();
+    	}).keys();*/
+    	var uniques = d3.set(
+    			rows.map(function(d){ return d.species; }).filter(function(d){  return (typeof d !== "undefined") ? d !== null : false })
+    	).values();
     	var colorRange = d3.scale.category20().domain(uniques);
-    	console.log(uniques);
     	// D3
-    	 // Size parameters.
-    	  //var size = 140,
-        var smallest = this.height();
-        if(this.width()<this.height()) smallest = this.width();
-    	      padding = 10,
-    	      traits = data.meta.measures(0),
+    	var padding = 10;
+    	var traits = data.meta.measures(0),
     	      n = traits.length;
-    	      var size = (smallest / n) - (padding / n);
+    	
 
+    	  
+    	  // Root panel.
+    	  //var svg = d3.select("body").append("svg:svg")
+    	  var svg = container;/*.append("svg:svg")
+    	      .attr("width", this.width())
+    	      .attr("height", this.height());*/
+    	  // Legend.
+    	  var legend = svg.selectAll("g.legend")
+    	  		.data(uniques)
+    	    .enter().append("svg:g")
+    	      .attr("class", "legend");
+    	      
+
+    	  legend.append("svg:circle")
+    	      //.attr("class", String)
+    	  	  .style("fill", function(d){return colorRange(d);})
+    	      .attr("r", 3);
+
+    	  legend.append("svg:text")
+    	      .attr("x", 12)
+    	      .attr("dy", ".31em")
+    	      .text(function(d) { return d; });
+    	  var legendWidth = 0;
+    	  
+    	  legend.selectAll("text").each(function() {
+    		  if(this.getBBox().width > legendWidth) legendWidth = this.getBBox().width;
+    	  });
+    	  legendWidth+=20;
+    	  legend.attr("transform", function(d, i) { return "translate(0," + (i * 20 + 20/* + 594*/) + ")"; });
+    	  // Plot Area
+    	// Size parameters.
+      	var smallest = this.height();
+      	console.log((this.width() - legendWidth)+","+this.height());
+      	if(parseInt(this.width() - legendWidth) < parseInt(this.height())) {
+      		smallest = this.width() - legendWidth;
+      	}
+      	var size = (smallest / n) - (padding / n);
+    	  var plotArea = svg.append("svg:g")
+	      	.attr("transform", "translate("+legendWidth+", 0)");
     	  // Position scales.
     	  var x = {}, y = {};
     	  traits.forEach(function(trait) {
@@ -66,35 +103,11 @@ function() {
     	      .on("brush", brush)
     	      .on("brushend", brushend);
 
-    	  // Root panel.
-    	  //var svg = d3.select("body").append("svg:svg")
-    	  var svg = container.append("svg:svg")
-    	      .attr("width", this.width())
-    	      .attr("height", this.height())
-    	    .append("svg:g")
-    	      //.attr("transform", "translate(359.5,69.5)");
-    	      .attr("transform", "translate(350, 0)");
-
-    	  // Legend.
-    	  var legend = svg.selectAll("g.legend")
-    	      //.data(["setosa", "versicolor", "virginica"])
-    	  		.data(uniques)
-    	    .enter().append("svg:g")
-    	      .attr("class", "legend")
-    	      .attr("transform", function(d, i) { return "translate(-350," + (i * 20/* + 594*/) + ")"; });
-
-    	  legend.append("svg:circle")
-    	      //.attr("class", String)
-    	  	  .style("fill", function(d){return colorRange(d);})
-    	      .attr("r", 3);
-
-    	  legend.append("svg:text")
-    	      .attr("x", 12)
-    	      .attr("dy", ".31em")
-    	      .text(function(d) { return d; });
-
+    	  
+    	  
+    	  
     	  // X-axis.
-    	  svg.selectAll("g.x.axis")
+    	  plotArea.selectAll("g.x.axis")
     	      .data(traits)
     	    .enter().append("svg:g")
     	      .attr("class", "x axis")
@@ -102,7 +115,7 @@ function() {
     	      .each(function(d) { d3.select(this).call(axis.scale(x[d]).orient("bottom")); });
 
     	  // Y-axis.
-    	  svg.selectAll("g.y.axis")
+    	  plotArea.selectAll("g.y.axis")
     	      .data(traits)
     	    .enter().append("svg:g")
     	      .attr("class", "y axis")
@@ -110,7 +123,7 @@ function() {
     	      .each(function(d) { d3.select(this).call(axis.scale(y[d]).orient("right")); });
 
     	  // Cell and plot.
-    	  var cell = svg.selectAll("g.cell")
+    	  var cell = plotArea.selectAll("g.cell")
     	      .data(cross(traits, traits))
     	    .enter().append("svg:g")
     	      .attr("class", "cell")
@@ -126,26 +139,77 @@ function() {
 
     	  function plot(p) {
     	    var cell = d3.select(this);
-
     	    // Plot frame.
     	    cell.append("svg:rect")
     	        .attr("class", "frame")
+    	        //.style("fill", (p.i == p.j)?"#009966":"transparent")
     	        .attr("x", padding / 2)
     	        .attr("y", padding / 2)
     	        .attr("width", size - padding)
     	        .attr("height", size - padding);
 
-    	    // Plot dots.
-    	    cell.selectAll("circle")
-    	        .data(rows)
-    	      .enter().append("svg:circle")
-    	        .attr("class", function(d) { return d.species; })
-    	        .attr("cx", function(d) { return x[p.x](d[p.x]); })
-    	        .attr("cy", function(d) { return y[p.y](d[p.y]); })
-    	        .attr("r", 3);
+    	    if(p.i != p.j){
+    	    	// Plot dots.
+	    	    cell.selectAll("circle")
+	    	        .data(rows)
+	    	      .enter().append("svg:circle")
+	    	        .attr("class", function(d) { return d.species; })
+	    	        .attr("cx", function(d) { return x[p.x](d[p.x]); })
+	    	        .attr("cy", function(d) { return y[p.y](d[p.y]); })
+	    	        .attr("r", 3);
 
-    	    // Plot brush.
-    	    cell.call(brush.x(x[p.x]).y(y[p.y]));
+	    	    // Plot brush.
+	    	    cell.call(brush.x(x[p.x]).y(y[p.y]));
+    	    }else{
+    	    	// Histogram time.  (http://bl.ocks.org/mbostock/3048450)
+    	    	var values = rows.map(function(d){
+    	    		return d[p.x];
+    	    	});
+    	    	var formatCount = d3.format(",.0f");
+    	    	// Same type x-scale range but domain different
+    	    	var hx = d3.scale.linear()
+    	    		.domain([0,d3.max(values)])
+    	    		.range([padding/2,size - padding]);
+
+    	    	// Generate a histogram using twenty uniformly-spaced bins.
+    	    	var data = d3.layout.histogram()
+	    			.bins(10)
+	    			(values);
+    	    	
+    	    	var hy = d3.scale.linear()
+    	    		.domain([0,d3.max(data,function(d){return d.y;})])
+    	    		.range([size - padding / 2, padding / 2]);
+
+    	    	/*var xAxis = d3.svg.axis()
+    	        	.scale(hx)
+    	        	.orient("bottom");*/
+
+    	    	var bar = cell.selectAll(".bar")
+    	    		.data(data)
+    	    	.enter().append("g")
+    	    		.attr("class", "bar")
+    	    		.attr("transform", function(d) { return "translate(" + hx(d.x) + "," + hy(d.y) + ")"; });
+
+    	    	bar.append("rect")
+    	        	.style("fill","#CFCFCF")
+    	        	.style("shape-rendering", "crispEdges")
+    	    		.attr("x", 5)
+    	        	.attr("width", function(d) {return hx(d.dx)-10;})
+    	        	.attr("height", function(d) { return (size - padding / 2) - hy(d.y); });
+
+    	    	bar.append("text")
+    	    		.style("fill","#808080")
+	    	        .attr("dy", ".75em")
+	    	        .attr("y", 6)
+	    	        .attr("x", function(d) {return hx(d.dx)/2})
+	    	        .attr("text-anchor", "middle")
+	    	        .text(function(d) { return formatCount(d.y); });
+
+    	    	console.log(data);
+    	    	console.log(values);
+    	    	console.log(hx.ticks(5));
+    	    	
+    	    }
     	  }
 
     	  // Clear the previously-active brush, if any.

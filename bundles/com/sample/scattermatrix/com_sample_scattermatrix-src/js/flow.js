@@ -56,7 +56,7 @@ define("com_sample_scattermatrix-src/js/flow", ["com_sample_scattermatrix-src/js
 
 		var ms1 = {
 			"id": "com.sample.scattermatrix.PlotModule.Measures",
-			"name": "X-Axis",
+			"name": "Measures",
 			"type": "Measure",
 			"min": 2, //minimum number of measures
 			"max": 10, //maximum number of measures
