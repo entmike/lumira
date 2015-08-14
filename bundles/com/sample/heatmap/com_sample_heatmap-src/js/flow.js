@@ -50,7 +50,8 @@ define("com_sample_heatmap-src/js/flow", ["com_sample_heatmap-src/js/module"], f
 			"mgIndex": 1
 		};
 		element.addFeed(ms1);
-
+		
+		// Not really using, just here for reference.
 		element.addProperty({
 			name: "colorPalette",
 			type: "StringArray",
@@ -59,7 +60,8 @@ define("com_sample_heatmap-src/js/flow", ["com_sample_heatmap-src/js/module"], f
 				.range().concat(d3.scale.category20b()
 				.range()).concat(d3.scale.category20c().range())
 		});
-		
+
+		// Use color stops property so we can control the colors via Compose Room properties.
 		element.addProperty({
 			name: "stops",
 			type: "StringArray",
@@ -71,30 +73,12 @@ define("com_sample_heatmap-src/js/flow", ["com_sample_heatmap-src/js/module"], f
 			type: "String",
 			defaultValue: "Median"
 		});
-		
-		element.addProperty({
-			name: "sampling",
-			type: "String",
-			defaultValue: "quantile"
-		});
 		/* https://help.hana.ondemand.com/webide_vizpacker/frameset.htm?51870e1bac8d4a68b76b073579bfc835.html
 		 * 
 		 * You change the property category in the flow.js file. Once you modify the property category, all properties beginning 
 		 * with the new property will be visible in render.js. For example, if you set the category to “plotArea”, 
 		 * then the following would be accessible in render.js
 		 */
-		element.addProperty({
-		   name : "size",
-		   type : "Integer",
-		   defaultValue : 15
-		});
-		element.addProperty({
-		    name: "showValues",
-		    type: "Boolean",
-		    defaultValue: true,
-		    supportedValues:[true, false]
-		 });
-
 		flow.addElement({
 			"element": element,
 			"propertyCategory": "plotArea",

@@ -33,7 +33,9 @@ function() {
     	var uniques = d3.set(
     			rows.map(function(d){ return d.species; }).filter(function(d){  return (typeof d !== "undefined") ? d !== null : false })
     	).values();
-    	var colorRange = d3.scale.category20().domain(uniques);
+    	var colorRange = d3.scale.ordinal()
+    		.range(this.properties().stops)
+    		.domain(uniques);
     	// D3
     	var padding = 10;
     	var traits = data.meta.measures(0),

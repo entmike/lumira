@@ -16,11 +16,9 @@ function() {
     	var margin = { top: 0, right: 0, bottom: 0, left: 0 },
         width = this.width() - margin.left - margin.right,
         height = this.height() - margin.top - margin.bottom,
-        //gridSize = Math.floor(width / 24),
         //legendElementWidth = gridSize*2,
-        colors = this.properties().stops,
-    	buckets = colors.length,
-    	sampling = this.properties().sampling;
+    	buckets = this.properties().stops.length,
+    	sampling = "quantile"; //this.properties().sampling;
     	
     	//console.log(data);
     	var xDimension = data.meta.dimensions(0)[0];
@@ -36,13 +34,8 @@ function() {
     	
     	var xScale = d3.scale.ordinal().domain(xUniques).rangePoints([0,xUniques.length - 1]);
     	var yScale = d3.scale.ordinal().domain(yUniques).rangePoints([0,yUniques.length - 1]);
-    	console.log(yUniques);
-    	console.log(yScale.range());
-    	var gridSize = this.properties().size;
-    	
     	var legendElementWidth = width / buckets;
     	
-    	console.log(data);
     	var min = 0;
         var max = 0;
         switch (this.properties().thresholdMethod){
@@ -60,20 +53,19 @@ function() {
     	var extents = [];
     	if(sampling=="quantile") colorScale = d3.scale.quantile()
         	.domain([0, max])
-        	.range(colors);
+        	.range(this.properties().stops);
     	
     	if(sampling=="quantize") {
     		colorScale = d3.scale.quantize()
 	    		.domain([0, max])
-		    	.range(colors);
+		    	.range(this.properties().stops);
     		
     		var legendSwatches = [];
-        	for (var i=0; i < colors.length; i++) {
-    			legendSwatches.push(colorScale.invertExtent(colors[i])[0]);
-    			//extents.push(colorScale.invertExtent(colors[i])[0]);
+        	for (var i=0; i < this.properties().stops.length; i++) {
+    			legendSwatches.push(colorScale.invertExtent(this.properties().stops[i])[0]);
     			extents.push({
-        			min : colorScale.invertExtent(colors[i])[0],	// Returns array of [min,max] per quantile "bucket"
-        			max : colorScale.invertExtent(colors[i])[1],
+        			min : colorScale.invertExtent(this.properties().stops[i])[0],	// Returns array of [min,max] per quantile "bucket"
+        			max : colorScale.invertExtent(this.properties().stops[i])[1],
         		});
     		}
     	}
@@ -97,7 +89,7 @@ function() {
 	          .text(function (d) { return d; })
 	          .attr("x", 0)
 	          //.style("text-anchor", "end")
-	          .attr("transform", "translate(0," + gridSize / 1.5 + ")")
+	          //.attr("transform", "translate(0,0)")
 	          .attr("class", function (d, i) { return ((i >= 0 && i <= 4) ? "yLabel mono axis axis-workweek" : "yLabel mono axis"); });
 	
 	    var marginLeft = 0;
@@ -139,6 +131,7 @@ function() {
       	}
       	var a = height/yUniques.length;
       	var b = width/xUniques.length;
+      	var gridSize;
       	if(a*xUniques.length > width){
 			gridSize = b;
       	}else{
@@ -159,7 +152,7 @@ function() {
 	    
 	    var newHeatMap = heatMap.enter()
 	    	.append("rect")
-	    	.style("fill", colors[0])
+	    	.style("fill", this.properties().stops[0])
 	    	.attr("rx", 4)
 	        .attr("ry", 4)
 	        .attr("class", "hour bordered");
@@ -196,12 +189,13 @@ function() {
 	    
 	    legend
 	    	.attr("transform", function(d,i){return "translate("+legendElementWidth * i+"," + (height + marginTop) + ")";});
-	    	
+	    
+	    var that = this;
 	    legend.select("rect")
 			.attr("width", legendElementWidth)
 			.attr("height", 10)
 			.attr("y", 5)
-			.style("fill", function(d, i) { return colors[i]; });
+			.style("fill", function(d, i) { return that.properties().stops[i]; });
 	
 	    legend.select("text")
 			.attr("class", "mono")

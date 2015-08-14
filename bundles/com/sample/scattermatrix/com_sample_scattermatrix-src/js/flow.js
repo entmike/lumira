@@ -25,21 +25,9 @@ define("com_sample_scattermatrix-src/js/flow", ["com_sample_scattermatrix-src/js
 			id: "sap.viz.chart.elements.Title",
 			name: "Title"
 		});
-		/*
-		var legendElement = sap.viz.extapi.Flow.createElement({
-			"id" : "sap.viz.modules.legend.common",
-			"configure" : {
-				"properties" : {
-					"type" : "MeasureBasedColoringLegend"
-				}
-			},
-			 name : 'Legend',
-		});
-		*/
-
 		var element = sap.viz.extapi.Flow.createElement({
 			id: "com.sample.scattermatrix.PlotModule",
-			name: "scattermatrix Module"
+			name: "Scatter Matrix Module"
 		});
 		element.implement("sap.viz.elements.common.BaseGraphic", moduleFunc);
 		
@@ -63,7 +51,7 @@ define("com_sample_scattermatrix-src/js/flow", ["com_sample_scattermatrix-src/js
 			"mgIndex": 1
 		};
 		element.addFeed(ms1);
-
+		// Not really using
 		element.addProperty({
 			name: "colorPalette",
 			type: "StringArray",
@@ -73,55 +61,14 @@ define("com_sample_scattermatrix-src/js/flow", ["com_sample_scattermatrix-src/js
 				.range()).concat(d3.scale.category20c().range())
 		});
 		
+		// My Colors
 		element.addProperty({
 			name: "stops",
 			type: "StringArray",
-			defaultValue: ["#f7fbff","#deebf7","#c6dbef","#9ecae1","#6baed6","#4292c6","#2171b5","#08519c","#08306b"]
+			defaultValue: d3.scale.category20()
+				.range().concat(d3.scale.category20b()
+				.range()).concat(d3.scale.category20c().range())
 		});
-		
-
-		/* https://help.hana.ondemand.com/webide_vizpacker/frameset.htm?51870e1bac8d4a68b76b073579bfc835.html
-		 * 
-		 * You change the property category in the flow.js file. Once you modify the property category, all properties beginning 
-		 * with the new property will be visible in render.js. For example, if you set the category to “plotArea”, 
-		 * then the following would be accessible in render.js
-		 */
-		element.addProperty({
-		   name : "radius",
-		   type : "Integer",
-		   defaultValue : 15
-		});
-		element.addProperty({
-		    name: "showValues",
-		    type: "Boolean",
-		    defaultValue: true,
-		    supportedValues:[true, false]
-		 });
-		/*
-		 * Tutorial attempts:
-		 */
-		 element.addProperty({
-		    name: "gridline",
-		    type: "Object",
-		    supportedValues: {
-		        visible : {
-		            name: "visible",
-		            type: "Boolean",
-		            supportedValues:[true, false]
-		        }
-		    }
-		 });
-		element.addProperty({
-		    name: "animation",
-		    type: "Object",
-		    supportedValues: {
-		        dataLoading : {
-		            name: "dataLoading",
-		            type: "Boolean",
-		            supportedValues:[true, false]
-		        }
-		    }
-		 });
 
 		flow.addElement({
 			"element": element,
@@ -134,23 +81,6 @@ define("com_sample_scattermatrix-src/js/flow", ["com_sample_scattermatrix-src/js
 			"propertyCategory": "title",
 			"place": "top"
 		});
-		
-		
-		
-		/*flow.addElement({
-			"element": legendElement,
-			"propertyCategory": "legend",
-			"place": "right"
-		});
-		*/
-		
-		/*
-		flow.addElement({
-			"element": dataFilter,
-			"propertyCategory": "tooltip",
-			//"place": "right"
-		});
-		*/
 		sap.viz.extapi.Flow.registerFlow(flow);
 	};
 	flowRegisterFunc.id = "com.sample.scattermatrix";
