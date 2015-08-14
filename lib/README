@@ -1,0 +1,3 @@
+This is a local copy of libs used in WebIDE - It is only used when previewing locally in Eclipse.
+
+If you are porting code back to WebIDE, you do not need this.
